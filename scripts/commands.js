@@ -1,63 +1,117 @@
-export const user = (command) => {
-  return command();
-};
-export const memory = (command) => {
-  return command();
-};
-export const handleSum = (x, y) => {
-  return x + y;
-};
+/* eslint-disable no-unused-vars */
+// Define the Command interface
+class Command {
+  execute () {}
+}
 
-export const handleDiff = (x, y) => {
-  return x - y;
-};
-
-export const handlePower = (x, y) => {
-  if (y === 0) {
-    return 1;
-  } else if (y < 0) {
-    return 1 / handlePower(x, -y);
-  } else if (y % 2 === 0) {
-    const temp = handlePower(x, y / 2);
-    return temp * temp;
-  } else {
-    return x * handlePower(x, y - 1);
+// Define the concrete command classes for each operation
+class AddCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
   }
-};
 
-export const handleProcentage = (x, y) => {
-  return (y / 100) * x;
-};
-
-export const handleFactorial = (x) => {
-  if (x <= 1) {
-    return 1;
-  } else {
-    return x * handleFactorial(x - 1);
+  execute () {
+    this.calculator.add(this.value);
   }
-};
+}
 
-export const handleDivide = (x, y) => {
-  return x / y;
-};
+class SubtractCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
+  }
 
-export const handleMultiply = (x, y) => {
-  return x * y;
-};
+  execute () {
+    this.calculator.subtract(this.value);
+  }
+}
 
-export const changeSign = (x) => {
-  return -x;
-};
-export const handleInput = (x, input) => {
-  return input.concat(x);
-};
+class MultiplyCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
+  }
 
-export const MS = (x) => {
-  const item = {
-    store: x
-  };
-  localStorage.setItem(item);
-};
-export const MC = (x) => {
-  localStorage.clear();
-};
+  execute () {
+    this.calculator.multiply(this.value);
+  }
+}
+
+class DivideCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
+  }
+
+  execute () {
+    this.calculator.divide(this.value);
+  }
+}
+class PowerCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
+  }
+
+  execute () {
+    this.calculator.power(this.value);
+  }
+}
+class FactorialCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.factorial();
+  }
+}
+class MemorySaveCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.memorySave();
+  }
+}
+class MemoryClearCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.memoryClear();
+  }
+}
+class MemoryAddCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.memoryAdd();
+  }
+}
+class MemorySubtractCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.memorySubtract();
+  }
+}
+
+// Define the Calculator class that will execute the commands
