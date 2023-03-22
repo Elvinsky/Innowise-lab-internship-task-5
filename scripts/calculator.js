@@ -1,11 +1,12 @@
-import { factorialFunc, powerFunc } from './consts.js';
+import { factorialFunc, powerFunc, rootFunc } from './consts.js';
 const workingArea = document.getElementById('field');
+
 export default class Calculator {
   constructor () {
     this.currentValue = 0;
     this.lastOperation = '';
     this.input = '';
-    this.memory = {};
+    this.memory = 0;
     this.history = [];
   }
 
@@ -26,7 +27,6 @@ export default class Calculator {
   }
 
   subtract (value) {
-    console.log(this, 'before subtracting');
     let result;
     if (this.lastOperation !== '-' && this.currentValue === 0) {
       result = value;
@@ -36,53 +36,107 @@ export default class Calculator {
     this.currentValue = result;
     this.lastOperation = '-';
     this.input = '';
-    workingArea.value = this.currentValue;
+    workingArea.value = this.currentValue; console.log(this);
   }
 
   multiply (value) {
-    this.currentValue *= value;
+    if (this.currentValue === 0) this.currentValue = value;
+    else if (this.input !== '') this.currentValue *= value;
+    this.input = '';
+    workingArea.value = this.currentValue;
+    this.lastOperation = '*';
   }
 
   divide (value) {
-    this.currentValue /= value;
+    if (this.currentValue === 0) this.currentValue = value;
+    else if (this.input !== '' && value !== 0) this.currentValue /= value;
+    else if (this.input !== '' && value === 0) {
+      alert('Dividing on 0 is forbidden. Risk of universe breakage');
+      return;
+    }
+    this.input = '';
+    workingArea.value = this.currentValue;
+    this.lastOperation = '/';
   }
 
-  power (value) {
-    this.currentValue = powerFunc(this.currentValue, value);
+  power (value, flag = false) { // flag detects if power method is used for x^y situation (true) or not (false)
+    if (!flag) {
+      if (this.currentValue === 0) this.currentValue = this.input;
+      else if (this.input !== '') powerFunc(this.currentValue, value);
+      this.currentValue = powerFunc(this.currentValue, value);
+      workingArea.value = this.currentValue;
+      this.input = '';
+    } else {
+      if (this.currentValue === 0) this.currentValue = value;
+      else if (this.input !== '') this.currentValue = powerFunc(this.currentValue, value);
+      this.input = '';
+      workingArea.value = this.currentValue;
+      this.lastOperation = '^';
+    }
+  }
+
+  root (value, flag = false) {
+    if (!flag) {
+      if (this.currentValue === 0) this.currentValue = this.input;
+      else if (this.input !== '') rootFunc(this.currentValue, value);
+      this.currentValue = rootFunc(this.currentValue, value);
+      workingArea.value = this.currentValue;
+      this.input = '';
+    } else {
+      if (this.currentValue === 0) this.currentValue = value;
+      else if (this.input !== '') this.currentValue = rootFunc(this.currentValue, value);
+      this.input = '';
+      workingArea.value = this.currentValue;
+      this.lastOperation = 'root';
+    }
   }
 
   signChange () {
-    console.log(this, 'before sign change');
     if (this.input === '') this.currentValue = -this.currentValue;
     else {
       this.input = -Number(this.input);
     }
     workingArea.value = -workingArea.value;
-    console.log(this, 'after sign change');
   }
 
   procent (value) {
-    this.currentValue = this.currentValue * (value);
+    if (this.currentValue === 0) this.currentValue = value;
+    else if (this.input !== '') this.currentValue *= value / 100;
+    this.input = '';
+    workingArea.value = this.currentValue;
+    this.lastOperation = '%';
   }
 
   factorial () {
+    if (this.currentValue === 0) this.currentValue = this.input;
+    else if (this.input !== '') factorialFunc(this.currentValue);
     this.currentValue = factorialFunc(this.currentValue);
+    workingArea.value = this.currentValue;
+    this.input = '';
   }
 
   memorySave () {
     this.memory = this.currentValue;
+    console.log(this);
   }
 
   memoryClear () {
-    this.memory = {};
+    this.memory = 0;
+    console.log(this);
   }
 
   memoryAdd () {
     this.currentValue += this.memory;
+    workingArea.value = this.currentValue;
+    this.input = '';
+    console.log(this);
   }
 
   memorySubtract () {
     this.currentValue -= this.memory;
+    workingArea.value = this.currentValue;
+    this.input = '';
+    console.log(this);
   }
 
   inputHandle (value) {
@@ -101,6 +155,26 @@ export default class Calculator {
     case '-':{
       this.subtract(Number(this.input));
       break;
+    }
+    case '*':{
+      this.multiply(Number(this.input));
+      break;
+    }
+    case '/':{
+      this.divide(Number(this.input));
+      break;
+    }
+    case '%':{
+      this.procent(Number(this.input));
+      break;
+    }
+    case '^':{
+      this.power(Number(this.input), true);
+      break;
+    }
+
+    case 'root':{
+      this.root(Number(this.input), true);
     }
     }
   }

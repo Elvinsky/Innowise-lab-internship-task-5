@@ -54,14 +54,31 @@ export class DivideCommand extends Command {
   }
 }
 export class PowerCommand extends Command {
-  constructor (calculator, value) {
+  constructor (calculator, value, flag = false) {
     super();
     this.calculator = calculator;
     this.value = value;
+    this.flag = flag;
   }
 
   execute () {
-    this.calculator.power(this.value);
+    this.calculator.power(this.value, this.flag);
+  }
+}
+export class RootCommand extends Command {
+  constructor (calculator, value, flag = false) {
+    super();
+    if (value <= 0) {
+      alert('Error! Cant count root of negative power');
+      return;
+    }
+    this.calculator = calculator;
+    this.value = value;
+    this.flag = flag;
+  }
+
+  execute () {
+    this.calculator.root(this.value, this.flag);
   }
 }
 export class SignChangeCommand extends Command {

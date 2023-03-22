@@ -1,8 +1,6 @@
 import Calculator from './calculator.js';
-import { AddCommand, ClearCommand, EqualCommand, InputCommand, MultiplyCommand, SignChangeCommand, SubtractCommand } from './commands.js';
-
+import { AddCommand, ClearCommand, DivideCommand, EqualCommand, FactorialCommand, InputCommand, MemoryAddCommand, MemoryClearCommand, MemorySaveCommand, MemorySubtractCommand, MultiplyCommand, PowerCommand, ProcentCommand, RootCommand, SignChangeCommand, SubtractCommand } from './commands.js';
 const field = document.getElementById('grid-container');
-// const workingArea = document.getElementById('field');
 const calculator = new Calculator();
 field.addEventListener('click', (event) => {
   const id = event.target.id;
@@ -40,9 +38,79 @@ field.addEventListener('click', (event) => {
     calculator.executeCommand(multiplyCommand);
     break;
   }
+  case '/':{
+    const divideCommand = new DivideCommand(calculator, Number(calculator.input));
+    calculator.executeCommand(divideCommand);
+    break;
+  }
+  case '%':{
+    const procentCommand = new ProcentCommand(calculator, Number(calculator.input));
+    calculator.executeCommand(procentCommand);
+    break;
+  }
   case 'C':{
     const clearCommand = new ClearCommand(calculator);
     calculator.executeCommand(clearCommand);
+    break;
+  }
+  case 'x^2':{
+    const powerCommand = new PowerCommand(calculator, 2);
+    calculator.executeCommand(powerCommand);
+    break;
+  }
+  case 'x^3':{
+    const powerCommand = new PowerCommand(calculator, 3);
+    calculator.executeCommand(powerCommand);
+    break;
+  }
+  case 'x^y':{
+    const powerCommand = new PowerCommand(calculator, Number(calculator.input), true);
+    calculator.executeCommand(powerCommand);
+    break;
+  }
+  case '1/x':{
+    const powerCommand = new PowerCommand(calculator, -1);
+    calculator.executeCommand(powerCommand);
+    break;
+  }
+  case 'x^-2':{
+    const rootCommand = new RootCommand(calculator, 2);
+    calculator.executeCommand(rootCommand);
+    break;
+  }
+  case 'x^-3':{
+    const rootCommand = new RootCommand(calculator, 3);
+    calculator.executeCommand(rootCommand);
+    break;
+  }
+  case 'x^-y':{
+    const rootCommand = new RootCommand(calculator, Number(calculator.input), true);
+    calculator.executeCommand(rootCommand);
+    break;
+  }
+  case 'x!':{
+    const factorialCommand = new FactorialCommand(calculator);
+    calculator.executeCommand(factorialCommand);
+    break;
+  }
+  case 'MC':{
+    const memoryClearCommand = new MemoryClearCommand(calculator);
+    calculator.executeCommand(memoryClearCommand);
+    break;
+  }
+  case 'M+':{
+    const memoryAddCommand = new MemoryAddCommand(calculator);
+    calculator.executeCommand(memoryAddCommand);
+    break;
+  }
+  case 'M-':{
+    const memorySubtractCommand = new MemorySubtractCommand(calculator);
+    calculator.executeCommand(memorySubtractCommand);
+    break;
+  }
+  case 'MS':{
+    const memorySaveCommand = new MemorySaveCommand(calculator);
+    calculator.executeCommand(memorySaveCommand);
     break;
   }
   }

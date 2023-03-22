@@ -40,32 +40,42 @@ export const powerFunc = (x, y) => {
   } else if (y > 0) {
     return x * powerFunc(x, y - 1);
   } else {
-    return 1 / powerFunc(x, -y);
+    return 1 / (x * powerFunc(x, -y - 1));
+  }
+};
+export const rootFunc = (num, n) => {
+  // Check for negative numbers
+  if (num < 0 && n % 2 === 0) {
+    return NaN;
+  }
+
+  // Set initial guess for the nth root
+  let guess = Math.pow(Math.abs(num), 1 / n);
+
+  // Use Newton's method to refine guess
+  const tolerance = 0.0000001; // Set desired level of accuracy
+  let error = Infinity; // Set initial error value
+  while (error > tolerance) {
+    const newGuess = ((n - 1) * guess + num / Math.pow(guess, n - 1)) / n;
+    error = Math.abs(newGuess - guess);
+    guess = newGuess;
+  }
+
+  // Return nth root
+  if (num < 0 && n % 2 === 1) {
+    return -guess;
+  } else {
+    return guess;
   }
 };
 export const factorialFunc = (x) => {
+  if (x !== parseFloat(x)) {
+    alert('factorial is available only for integers');
+    return NaN;
+  }
   if (x === 0 || x === 1) {
     return 1;
   } else {
     return x * factorialFunc(x - 1);
-  }
-};
-export const countDifference = (x, y) => {
-  // Convert numbers to strings
-  const xStr = String(x);
-  const yStr = String(y);
-
-  // Parse the numbers to floating-point values
-  const xFloat = parseFloat(xStr);
-  const yFloat = parseFloat(yStr);
-
-  // Calculate the difference between the absolute values
-  const diff = Math.abs(xFloat - yFloat);
-
-  // Check if the original difference was negative using a tolerance of 1e-15
-  if (Math.abs(xFloat - yFloat) - diff > 1e-15) {
-    return yFloat - xFloat;
-  } else {
-    return xFloat - yFloat;
   }
 };
