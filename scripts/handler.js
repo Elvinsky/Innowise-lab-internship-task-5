@@ -1,5 +1,5 @@
 import Calculator from './calculator.js';
-import { AddCommand, ClearCommand, EqualCommand, InputCommand, SubtractCommand } from './commands.js';
+import { AddCommand, ClearCommand, EqualCommand, InputCommand, MultiplyCommand, SignChangeCommand, SubtractCommand } from './commands.js';
 
 const field = document.getElementById('grid-container');
 // const workingArea = document.getElementById('field');
@@ -15,8 +15,13 @@ field.addEventListener('click', (event) => {
     calculator.executeCommand(inputCommand);
     break;
   };
+  case '+/-':{
+    const signChange = new SignChangeCommand(calculator);
+    calculator.executeCommand(signChange);
+    break;
+  }
   case '+':{
-    const addCommand = new AddCommand(calculator, +calculator.input);
+    const addCommand = new AddCommand(calculator, Number(calculator.input));
     calculator.executeCommand(addCommand);
     break;
   }
@@ -26,8 +31,13 @@ field.addEventListener('click', (event) => {
     break;
   }
   case '-':{
-    const subCommand = new SubtractCommand(calculator, +calculator.input);
+    const subCommand = new SubtractCommand(calculator, Number(calculator.input));
     calculator.executeCommand(subCommand);
+    break;
+  }
+  case 'X':{
+    const multiplyCommand = new MultiplyCommand(calculator, Number(calculator.input));
+    calculator.executeCommand(multiplyCommand);
     break;
   }
   case 'C':{

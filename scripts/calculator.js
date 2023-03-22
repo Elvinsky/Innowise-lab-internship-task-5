@@ -4,8 +4,6 @@ export default class Calculator {
   constructor () {
     this.currentValue = 0;
     this.lastOperation = '';
-    // this.leftOperand = '';
-    // this.rightOperand = '';
     this.input = '';
     this.memory = {};
     this.history = [];
@@ -25,11 +23,20 @@ export default class Calculator {
     this.currentValue = result;
     this.input = '';
     workingArea.value = this.currentValue;
-    console.log(this);
   }
 
   subtract (value) {
-    this.currentValue -= value;
+    console.log(this, 'before subtracting');
+    let result;
+    if (this.lastOperation !== '-' && this.currentValue === 0) {
+      result = value;
+    } else {
+      result = this.currentValue - value;
+    }
+    this.currentValue = result;
+    this.lastOperation = '-';
+    this.input = '';
+    workingArea.value = this.currentValue;
   }
 
   multiply (value) {
@@ -45,7 +52,13 @@ export default class Calculator {
   }
 
   signChange () {
-    this.currentValue = -this.currentValue;
+    console.log(this, 'before sign change');
+    if (this.input === '') this.currentValue = -this.currentValue;
+    else {
+      this.input = -Number(this.input);
+    }
+    workingArea.value = -workingArea.value;
+    console.log(this, 'after sign change');
   }
 
   procent (value) {
@@ -82,13 +95,19 @@ export default class Calculator {
   equal () {
     switch (this.lastOperation) {
     case '+':{
-      this.add(+this.input);
+      this.add(Number(this.input));
+      break;
+    }
+    case '-':{
+      this.subtract(Number(this.input));
+      break;
     }
     }
   }
 
   clear () {
     workingArea.value = 0;
+    this.lastOperation = '';
     this.currentValue = 0;
     this.input = '';
     this.leftOperand = '';

@@ -50,3 +50,22 @@ export const factorialFunc = (x) => {
     return x * factorialFunc(x - 1);
   }
 };
+export const countDifference = (x, y) => {
+  // Convert numbers to strings
+  const xStr = String(x);
+  const yStr = String(y);
+
+  // Parse the numbers to floating-point values
+  const xFloat = parseFloat(xStr);
+  const yFloat = parseFloat(yStr);
+
+  // Calculate the difference between the absolute values
+  const diff = Math.abs(xFloat - yFloat);
+
+  // Check if the original difference was negative using a tolerance of 1e-15
+  if (Math.abs(xFloat - yFloat) - diff > 1e-15) {
+    return yFloat - xFloat;
+  } else {
+    return xFloat - yFloat;
+  }
+};
