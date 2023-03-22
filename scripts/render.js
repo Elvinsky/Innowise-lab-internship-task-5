@@ -1,13 +1,12 @@
-import { valuesArr, primaryInd, actionsInd } from './consts.js';
+import { valuesArr, actionsInd } from './consts.js';
 const buttonEl = document.createElement('button');
 const gridContainer = document.getElementById('grid-container');
-
 const renderContainer = (size) => {
   for (let i = 0; i < size; i++) {
     const buttonCopy = buttonEl.cloneNode(true);
     buttonCopy.innerHTML = valuesArr[i];
+    buttonCopy.id = valuesArr[i];
     buttonCopy.classList.add('grid-btn');
-    if (primaryInd.includes(i))buttonCopy.classList.add('primary');
     if (actionsInd.includes(i))buttonCopy.classList.add('actions');
     if (i === 28) {
       buttonCopy.disabled = true;

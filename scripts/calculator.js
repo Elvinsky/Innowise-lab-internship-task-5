@@ -1,8 +1,11 @@
 import { factorialFunc, powerFunc } from './consts.js';
-
+const workingArea = document.getElementById('field');
 export default class Calculator {
   constructor () {
     this.currentValue = 0;
+    this.lastOperation = '';
+    // this.leftOperand = '';
+    // this.rightOperand = '';
     this.input = '';
     this.memory = {};
     this.history = [];
@@ -14,11 +17,15 @@ export default class Calculator {
   }
 
   add (value) {
+    this.lastOperation = '+';
     let result = value + this.currentValue;
     if ((value === 0.1 && this.currentValue === 0.2) || (value === 0.2 && this.currentValue === 0.1)) {
       result = +(value + this.currentValue).toFixed(10);
     }
     this.currentValue = result;
+    this.input = '';
+    workingArea.value = this.currentValue;
+    console.log(this);
   }
 
   subtract (value) {
@@ -37,32 +44,55 @@ export default class Calculator {
     this.currentValue = powerFunc(this.currentValue, value);
   }
 
+  signChange () {
+    this.currentValue = -this.currentValue;
+  }
+
+  procent (value) {
+    this.currentValue = this.currentValue * (value);
+  }
+
   factorial () {
     this.currentValue = factorialFunc(this.currentValue);
   }
 
   memorySave () {
-    localStorage.setItem('memory', this.currentValue);
-    this.memory = localStorage.getItem('memory');
+    this.memory = this.currentValue;
   }
 
   memoryClear () {
-    localStorage.clear();
     this.memory = {};
   }
 
   memoryAdd () {
-    const value = JSON.parse(localStorage.getItem('memory'));
-    this.currentValue += value;
+    this.currentValue += this.memory;
   }
 
   memorySubtract () {
-    const value = JSON.parse(localStorage.getItem('memory'));
-    this.currentValue -= value;
+    this.currentValue -= this.memory;
+  }
+
+  inputHandle (value) {
+    if (this.input.toString().split('').includes('.') && value === '.') return;
+    const product = this.input.concat(value);
+    this.input = product;
+    workingArea.value = this.input;
+  }
+
+  equal () {
+    switch (this.lastOperation) {
+    case '+':{
+      this.add(+this.input);
+    }
+    }
   }
 
   clear () {
+    workingArea.value = 0;
     this.currentValue = 0;
+    this.input = '';
+    this.leftOperand = '';
+    this.leftOperand = '';
     this.history = [];
   }
 }

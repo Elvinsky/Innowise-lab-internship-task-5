@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
+
 // Define the Command interface
-class Command {
+export class Command {
   execute () {}
 }
 
-// Define the concrete command classes for each operation
-class AddCommand extends Command {
+// Define the concrete command export classes for each operation
+export class AddCommand extends Command {
   constructor (calculator, value) {
     super();
     this.calculator = calculator;
@@ -17,7 +18,7 @@ class AddCommand extends Command {
   }
 }
 
-class SubtractCommand extends Command {
+export class SubtractCommand extends Command {
   constructor (calculator, value) {
     super();
     this.calculator = calculator;
@@ -29,7 +30,7 @@ class SubtractCommand extends Command {
   }
 }
 
-class MultiplyCommand extends Command {
+export class MultiplyCommand extends Command {
   constructor (calculator, value) {
     super();
     this.calculator = calculator;
@@ -41,7 +42,7 @@ class MultiplyCommand extends Command {
   }
 }
 
-class DivideCommand extends Command {
+export class DivideCommand extends Command {
   constructor (calculator, value) {
     super();
     this.calculator = calculator;
@@ -52,7 +53,7 @@ class DivideCommand extends Command {
     this.calculator.divide(this.value);
   }
 }
-class PowerCommand extends Command {
+export class PowerCommand extends Command {
   constructor (calculator, value) {
     super();
     this.calculator = calculator;
@@ -63,7 +64,28 @@ class PowerCommand extends Command {
     this.calculator.power(this.value);
   }
 }
-class FactorialCommand extends Command {
+export class SignChangeCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.signChange();
+  }
+}
+export class ProcentCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
+  }
+
+  execute () {
+    this.calculator.procent(this.value);
+  }
+}
+export class FactorialCommand extends Command {
   constructor (calculator) {
     super();
     this.calculator = calculator;
@@ -73,7 +95,7 @@ class FactorialCommand extends Command {
     this.calculator.factorial();
   }
 }
-class MemorySaveCommand extends Command {
+export class MemorySaveCommand extends Command {
   constructor (calculator) {
     super();
     this.calculator = calculator;
@@ -83,7 +105,7 @@ class MemorySaveCommand extends Command {
     this.calculator.memorySave();
   }
 }
-class MemoryClearCommand extends Command {
+export class MemoryClearCommand extends Command {
   constructor (calculator) {
     super();
     this.calculator = calculator;
@@ -93,7 +115,7 @@ class MemoryClearCommand extends Command {
     this.calculator.memoryClear();
   }
 }
-class MemoryAddCommand extends Command {
+export class MemoryAddCommand extends Command {
   constructor (calculator) {
     super();
     this.calculator = calculator;
@@ -103,7 +125,7 @@ class MemoryAddCommand extends Command {
     this.calculator.memoryAdd();
   }
 }
-class MemorySubtractCommand extends Command {
+export class MemorySubtractCommand extends Command {
   constructor (calculator) {
     super();
     this.calculator = calculator;
@@ -113,5 +135,36 @@ class MemorySubtractCommand extends Command {
     this.calculator.memorySubtract();
   }
 }
+export class InputCommand extends Command {
+  constructor (calculator, value) {
+    super();
+    this.calculator = calculator;
+    this.value = value;
+  }
 
-// Define the Calculator class that will execute the commands
+  execute () {
+    this.calculator.inputHandle(this.value);
+  }
+}
+export class EqualCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.equal();
+  }
+}
+export class ClearCommand extends Command {
+  constructor (calculator) {
+    super();
+    this.calculator = calculator;
+  }
+
+  execute () {
+    this.calculator.clear();
+  }
+}
+
+// Define the Calculator export class that will execute the commands
