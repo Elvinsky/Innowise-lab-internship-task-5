@@ -1,4 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { valuesArr, actionsInd } from './consts.js';
+import { setHandler } from './handler.js';
+import Calculator from './calculator.js';
+import * as consts from './consts.js';
+import * as commands from './commands.js';
 const buttonEl = document.createElement('button');
 const gridContainer = document.getElementById('grid-container');
 const renderContainer = (size) => {
@@ -22,5 +27,5 @@ const renderContainer = (size) => {
     gridContainer.append(buttonCopy);
   }
 };
-
+setHandler();
 renderContainer(32);

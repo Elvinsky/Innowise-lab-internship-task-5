@@ -1,6 +1,5 @@
 import { factorialFunc, powerFunc, rootFunc } from './consts.js';
 const workingArea = document.getElementById('field');
-
 export default class Calculator {
   constructor () {
     this.currentValue = 0;
