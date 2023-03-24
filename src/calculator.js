@@ -1,5 +1,9 @@
 import { factorialFunc, powerFunc, rootFunc } from './consts.js';
 const workingArea = document.getElementById('field');
+workingArea.value = '0';
+const updateField = (value) => {
+  workingArea.value = value;
+};
 export default class Calculator {
   constructor () {
     this.currentValue = 0;
@@ -22,7 +26,7 @@ export default class Calculator {
     }
     this.currentValue = result;
     this.input = '';
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
   }
 
   subtract (value) {
@@ -35,14 +39,14 @@ export default class Calculator {
     this.currentValue = result;
     this.lastOperation = '-';
     this.input = '';
-    workingArea.value = this.currentValue; console.log(this);
+    updateField(this.currentValue); console.log(this);
   }
 
   multiply (value) {
     if (this.currentValue === 0) this.currentValue = value;
     else if (this.input !== '') this.currentValue *= value;
     this.input = '';
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
     this.lastOperation = '*';
   }
 
@@ -54,7 +58,7 @@ export default class Calculator {
       return;
     }
     this.input = '';
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
     this.lastOperation = '/';
   }
 
@@ -63,13 +67,13 @@ export default class Calculator {
       if (this.currentValue === 0) this.currentValue = this.input;
       else if (this.input !== '') powerFunc(this.currentValue, value);
       this.currentValue = powerFunc(this.currentValue, value);
-      workingArea.value = this.currentValue;
+      updateField(this.currentValue);
       this.input = '';
     } else {
       if (this.currentValue === 0) this.currentValue = value;
       else if (this.input !== '') this.currentValue = powerFunc(this.currentValue, value);
       this.input = '';
-      workingArea.value = this.currentValue;
+      updateField(this.currentValue);
       this.lastOperation = '^';
     }
   }
@@ -79,13 +83,13 @@ export default class Calculator {
       if (this.currentValue === 0) this.currentValue = this.input;
       else if (this.input !== '') rootFunc(this.currentValue, value);
       this.currentValue = rootFunc(this.currentValue, value);
-      workingArea.value = this.currentValue;
+      updateField(this.currentValue);
       this.input = '';
     } else {
       if (this.currentValue === 0) this.currentValue = value;
       else if (this.input !== '') this.currentValue = rootFunc(this.currentValue, value);
       this.input = '';
-      workingArea.value = this.currentValue;
+      updateField(this.currentValue);
       this.lastOperation = 'root';
     }
   }
@@ -95,14 +99,14 @@ export default class Calculator {
     else {
       this.input = -Number(this.input);
     }
-    workingArea.value = -workingArea.value;
+    updateField(-workingArea.value);
   }
 
   procent (value) {
     if (this.currentValue === 0) this.currentValue = value;
     else if (this.input !== '') this.currentValue *= value / 100;
     this.input = '';
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
     this.lastOperation = '%';
   }
 
@@ -110,7 +114,7 @@ export default class Calculator {
     if (this.currentValue === 0) this.currentValue = this.input;
     else if (this.input !== '') factorialFunc(this.currentValue);
     this.currentValue = factorialFunc(this.currentValue);
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
     this.input = '';
   }
 
@@ -126,14 +130,14 @@ export default class Calculator {
 
   memoryAdd () {
     this.currentValue += this.memory;
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
     this.input = '';
     console.log(this);
   }
 
   memorySubtract () {
     this.currentValue -= this.memory;
-    workingArea.value = this.currentValue;
+    updateField(this.currentValue);
     this.input = '';
     console.log(this);
   }
@@ -142,7 +146,7 @@ export default class Calculator {
     if (this.input.toString().split('').includes('.') && value === '.') return;
     const product = this.input.concat(value);
     this.input = product;
-    workingArea.value = this.input;
+    updateField(this.input);
   }
 
   equal () {
@@ -179,7 +183,7 @@ export default class Calculator {
   }
 
   clear () {
-    workingArea.value = 0;
+    updateField(0);
     this.lastOperation = '';
     this.currentValue = 0;
     this.input = '';
