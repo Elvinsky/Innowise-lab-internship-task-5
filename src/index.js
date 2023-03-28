@@ -13,10 +13,12 @@ const renderContainer = (size) => {
     buttonCopy.id = valuesArr[i];
     buttonCopy.classList.add('grid-btn');
     if (actionsInd.includes(i))buttonCopy.classList.add('actions');
+    if (consts.primaryInd.includes(i))buttonCopy.classList.add('primary');
     if (i === 28) {
-      buttonCopy.disabled = true;
-      buttonCopy.innerHTML = 'Innowise Lab Task 4';
-      gridContainer.append(buttonCopy);
+      buttonCopy.innerHTML = 'Change Theme';
+      buttonCopy.addEventListener('click', () => {
+        themeChanger();
+      });
     }
     buttonCopy.addEventListener('click', () => {
       buttonCopy.classList.add('clicked');
@@ -26,6 +28,20 @@ const renderContainer = (size) => {
     });
     gridContainer.append(buttonCopy);
   }
+};
+const themeChanger = () => {
+  const nodes = [
+    document.getElementById('working-field'),
+    document.getElementById('grid-container'),
+    document.getElementById('field')
+  ];
+  const buttons = document.querySelectorAll('.grid-btn ');
+  buttons.forEach(el => {
+    nodes.push(el);
+  });
+  nodes.forEach(el => {
+    el.classList.toggle('white');
+  });
 };
 setHandler();
 renderContainer(32);

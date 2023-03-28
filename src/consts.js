@@ -45,9 +45,6 @@ export const powerFunc = (x, y) => {
 };
 export const rootFunc = (num, n) => {
   // Check for negative numbers
-  if (num < 0 && n % 2 === 0) {
-    return NaN;
-  }
 
   // Set initial guess for the nth root
   let guess = Math.pow(Math.abs(num), 1 / n);
@@ -69,10 +66,6 @@ export const rootFunc = (num, n) => {
   }
 };
 export const factorialFunc = (x) => {
-  if (x !== parseFloat(x)) {
-    alert('factorial is available only for integers');
-    return NaN;
-  }
   if (x === 0 || x === 1) {
     return 1;
   } else {

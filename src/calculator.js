@@ -1,6 +1,5 @@
 import { factorialFunc, powerFunc, rootFunc } from './consts.js';
 const workingArea = document.getElementById('field');
-workingArea.value = '0';
 const updateField = (value) => {
   workingArea.value = value;
 };
@@ -26,7 +25,7 @@ export default class Calculator {
     }
     this.currentValue = result;
     this.input = '';
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
   }
 
   subtract (value) {
@@ -39,57 +38,60 @@ export default class Calculator {
     this.currentValue = result;
     this.lastOperation = '-';
     this.input = '';
-    updateField(this.currentValue); console.log(this);
+    if (workingArea) updateField(this.currentValue); console.log(this);
   }
 
   multiply (value) {
+    console.log(this, 'before mult');
     if (this.currentValue === 0) this.currentValue = value;
     else if (this.input !== '') this.currentValue *= value;
     this.input = '';
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
     this.lastOperation = '*';
+    console.log(this, 'after mult');
   }
 
   divide (value) {
     if (this.currentValue === 0) this.currentValue = value;
     else if (this.input !== '' && value !== 0) this.currentValue /= value;
     else if (this.input !== '' && value === 0) {
-      alert('Dividing on 0 is forbidden. Risk of universe breakage');
-      return;
+      throw new Error('Dividing on 0 is forbidden. Risk of universe breakage');
     }
     this.input = '';
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
     this.lastOperation = '/';
   }
 
   power (value, flag = false) { // flag detects if power method is used for x^y situation (true) or not (false)
+    if (!Number.isInteger(+value)) throw new Error('Unexpected value. If u want to find a root - use root button');
     if (!flag) {
       if (this.currentValue === 0) this.currentValue = this.input;
       else if (this.input !== '') powerFunc(this.currentValue, value);
       this.currentValue = powerFunc(this.currentValue, value);
-      updateField(this.currentValue);
+      if (workingArea) updateField(this.currentValue);
       this.input = '';
     } else {
       if (this.currentValue === 0) this.currentValue = value;
       else if (this.input !== '') this.currentValue = powerFunc(this.currentValue, value);
       this.input = '';
-      updateField(this.currentValue);
+      if (workingArea) updateField(this.currentValue);
       this.lastOperation = '^';
     }
   }
 
   root (value, flag = false) {
+    if (!Number.isInteger(+value) || value < 0) throw new Error('Unexpected value. Only poisitive integers allowed');
     if (!flag) {
       if (this.currentValue === 0) this.currentValue = this.input;
       else if (this.input !== '') rootFunc(this.currentValue, value);
       this.currentValue = rootFunc(this.currentValue, value);
-      updateField(this.currentValue);
+      if (workingArea) updateField(this.currentValue);
       this.input = '';
     } else {
       if (this.currentValue === 0) this.currentValue = value;
       else if (this.input !== '') this.currentValue = rootFunc(this.currentValue, value);
       this.input = '';
-      updateField(this.currentValue);
+      if (workingArea) updateField(this.currentValue);
       this.lastOperation = 'root';
     }
   }
@@ -99,14 +101,14 @@ export default class Calculator {
     else {
       this.input = -Number(this.input);
     }
-    updateField(-workingArea.value);
+    if (workingArea) updateField(-workingArea.value);
   }
 
   procent (value) {
     if (this.currentValue === 0) this.currentValue = value;
     else if (this.input !== '') this.currentValue *= value / 100;
     this.input = '';
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
     this.lastOperation = '%';
   }
 
@@ -114,7 +116,7 @@ export default class Calculator {
     if (this.currentValue === 0) this.currentValue = this.input;
     else if (this.input !== '') factorialFunc(this.currentValue);
     this.currentValue = factorialFunc(this.currentValue);
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
     this.input = '';
   }
 
@@ -130,14 +132,14 @@ export default class Calculator {
 
   memoryAdd () {
     this.currentValue += this.memory;
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
     this.input = '';
     console.log(this);
   }
 
   memorySubtract () {
     this.currentValue -= this.memory;
-    updateField(this.currentValue);
+    if (workingArea) updateField(this.currentValue);
     this.input = '';
     console.log(this);
   }
@@ -146,7 +148,7 @@ export default class Calculator {
     if (this.input.toString().split('').includes('.') && value === '.') return;
     const product = this.input.concat(value);
     this.input = product;
-    updateField(this.input);
+    if (workingArea) updateField(this.input);
   }
 
   equal () {
@@ -183,7 +185,7 @@ export default class Calculator {
   }
 
   clear () {
-    updateField(0);
+    if (workingArea) updateField(0);
     this.lastOperation = '';
     this.currentValue = 0;
     this.input = '';
