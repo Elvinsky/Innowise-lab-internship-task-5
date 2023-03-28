@@ -69,7 +69,6 @@ button.grid-btn.clicked {
 
 button.grid-btn:nth-child(29) {
     background-color: #6262a4;
-    cursor: default;
 }
 
 .grid-btn.primary {
@@ -89,4 +88,26 @@ button.grid-btn:nth-child(29) {
 .grid-btn:nth-child(30) {
     grid-column-start: 4;
     grid-column-end: 6;
+}
+
+.working-field.white,
+.grid-container.white {
+    background-color: #d7d4ff;
+}
+
+#field.white {
+    color: black;
+}
+
+.grid-btn.white {
+    background-color: #747294;
+}
+
+.grid-btn.white.primary {
+    background-color: rgb(57, 52, 113);
+}
+
+.grid-btn.actions.white {
+    background-color: #27a710;
+
 }
