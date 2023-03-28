@@ -62,7 +62,7 @@ export default class Calculator {
     this.lastOperation = '/';
   }
 
-  power (value, flag = false) { // flag detects if power method is used for x^y situation (true) or not (false)
+  power (value, flag = false) { // flag detects if power method is used for x^y situation (true) or not (false
     if (!Number.isInteger(+value)) throw new Error('Unexpected value. If u want to find a root - use root button');
     if (!flag) {
       if (this.currentValue === 0) this.currentValue = this.input;
