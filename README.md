@@ -3,12 +3,7 @@
 This is the repository for task #5 of the Innowise Internship for front-end JS developer. The task involved building a calculator application using JavaScript and implementing the Command pattern. The full task details can be found in the <a href="https://drive.google.com/file/d/15jVnBPXaZrjs99KOUxp4TGq6Inau6xq_/view"> task description file.
 </a>
 How to run the app
-There are two ways to run the application:
-
-<h2>Method 1 - Open root directory</h2><br>
-Open the root directory of the project.<br>
-Launch index.html.<br>
-<h2>Method 2 - Open dist directory</h2><br>
+<h2>Open dist directory</h2><br>
 Open the dist directory.<br>
 Launch index.html.<br>
 <h2>Directory structure</h2>
