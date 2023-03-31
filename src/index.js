@@ -4,6 +4,7 @@ import { setHandler } from './handler.js';
 import Calculator from './calculator.js';
 import * as consts from './consts.js';
 import * as commands from './commands.js';
+import * as utils from './utils.js';
 import './styles.css';
 const buttonEl = document.createElement('button');
 const gridContainer = document.getElementById('grid-container');

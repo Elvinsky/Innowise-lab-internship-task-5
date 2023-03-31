@@ -1,4 +1,4 @@
-import { factorialFunc, powerFunc, rootFunc } from './consts.js';
+import { factorialFunc, powerFunc, rootFunc } from './utils.js';
 const workingArea = document.getElementById('field');
 const updateField = (value) => {
   workingArea.value = value;
@@ -38,17 +38,15 @@ export default class Calculator {
     this.currentValue = result;
     this.lastOperation = '-';
     this.input = '';
-    if (workingArea) updateField(this.currentValue); console.log(this);
+    if (workingArea) updateField(this.currentValue);
   }
 
   multiply (value) {
-    console.log(this, 'before mult');
     if (this.currentValue === 0) this.currentValue = value;
     else if (this.input !== '') this.currentValue *= value;
     this.input = '';
     if (workingArea) updateField(this.currentValue);
     this.lastOperation = '*';
-    console.log(this, 'after mult');
   }
 
   divide (value) {
@@ -122,26 +120,22 @@ export default class Calculator {
 
   memorySave () {
     this.memory = this.currentValue;
-    console.log(this);
   }
 
   memoryClear () {
     this.memory = 0;
-    console.log(this);
   }
 
   memoryAdd () {
     this.currentValue += this.memory;
     if (workingArea) updateField(this.currentValue);
     this.input = '';
-    console.log(this);
   }
 
   memorySubtract () {
     this.currentValue -= this.memory;
     if (workingArea) updateField(this.currentValue);
     this.input = '';
-    console.log(this);
   }
 
   inputHandle (value) {
