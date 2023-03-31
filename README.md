@@ -4,7 +4,7 @@ This is the repository for task #5 of the Innowise Internship for front-end JS d
 </a>
 How to run the app
 <h2>Open dist directory</h2><br>
-Open the dist directory.<br>
+Open the dist directоry.<br>
 Launch index.html.<br>
 <h2>Directory structure</h2>
 ├── dist/<br>
