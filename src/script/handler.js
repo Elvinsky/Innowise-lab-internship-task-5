@@ -1,4 +1,4 @@
-import Calculator from './calculator.js';
+import Calculator from '../script/calculator.js';
 import { AddCommand, ClearCommand, DivideCommand, EqualCommand, FactorialCommand, InputCommand, MemoryAddCommand, MemoryClearCommand, MemorySaveCommand, MemorySubtractCommand, MultiplyCommand, PowerCommand, ProcentCommand, RootCommand, SignChangeCommand, SubtractCommand } from './commands.js';
 export const setHandler = () => {
   const field = document.getElementById('grid-container');

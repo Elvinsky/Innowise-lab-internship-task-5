@@ -1,4 +1,4 @@
-import { factorialFunc, powerFunc, rootFunc } from './utils.js';
+import { factorialFunc, powerFunc, rootFunc } from '../utils/utils.js';
 const workingArea = document.getElementById('field');
 const updateField = (value) => {
   workingArea.value = value;

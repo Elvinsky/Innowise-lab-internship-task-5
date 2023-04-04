@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { valuesArr, actionsInd } from './consts.js';
-import { setHandler } from './handler.js';
-import Calculator from './calculator.js';
-import * as consts from './consts.js';
-import * as commands from './commands.js';
-import * as utils from './utils.js';
-import './styles.css';
+import { valuesArr, actionsInd } from '../consts/consts.js';
+import { setHandler } from '../script/handler.js';
+import Calculator from '../script/calculator.js';
+import * as consts from '../consts/consts.js';
+import * as commands from '../script/commands.js';
+import * as utils from '../utils/utils.js';
+import '../styles/styles.css';
 const buttonEl = document.createElement('button');
 const gridContainer = document.getElementById('grid-container');
 const renderContainer = (size) => {
